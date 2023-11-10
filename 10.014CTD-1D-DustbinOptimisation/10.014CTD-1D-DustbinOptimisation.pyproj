@@ -22,6 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Graph.py" />
+    <Compile Include="Jsonstuff.py" />
     <Compile Include="User.py" />
     <Compile Include="_10.014CTD_1D_DustbinOptimisation.py" />
   </ItemGroup>
