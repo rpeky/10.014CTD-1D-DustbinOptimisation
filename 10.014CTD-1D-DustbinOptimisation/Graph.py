@@ -17,6 +17,8 @@ class Graph():
         #generate if does not exist
         else:
             self.generate_data_firsttimeuse(graphid)
+            
+
 
         print('Graph created')
         
@@ -27,10 +29,10 @@ class Graph():
     #save in master folder
     def generate_data_firsttimeuse(self, graphid):
         
-
-        self.dd_graph = {
+        while True:
             
-            }
+            pass
+        
         
 
 

@@ -15,9 +15,6 @@ def generate_person():
     u.printtest()
     return u
 
-
-
-
 #User input functions
 #Terminal input output
 def output_buildingdecision_query_userinput():
@@ -50,9 +47,6 @@ def output_listoffloorplans_query_userinput(building_choice):
 
 
 
-
-
-
 def welcome_message():
     print('test welcome message')
     #to make some intro message and how to use the software
@@ -66,10 +60,6 @@ def welcome_message():
 def main():
     #welcome_message()
     Jsonstuff.check_filefolderexist()
-    
-    
-    
-
 
 if __name__ == "__main__":
     start=time.process_time()

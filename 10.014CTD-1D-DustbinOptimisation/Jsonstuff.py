@@ -18,8 +18,7 @@ def check_filefolderexist():
         if not os.path.isdir(folder):
             print('making folder: {}'.format(folder))
             os.mkdir(folder)
-            
-    return
+
 
 def check_floorplan_exist(graphid):
     filename = str(graphid)+'_floorplan.json'
