@@ -1,7 +1,10 @@
 
 class User():
     def __init__(self):
-        pass
+        print('User created')
+
+    def __del__(self):
+        print('Job completed, deleting user')
     
     def printtest(self):
         print('printtest')
