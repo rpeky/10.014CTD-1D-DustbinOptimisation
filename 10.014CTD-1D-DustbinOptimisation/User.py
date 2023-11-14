@@ -11,6 +11,9 @@ class User():
     def display_listofstartpoint(self):
         pass
     
+    def display_listofchoices(self):
+        pass
+    
     def printtest(self):
         print('printtest')
 

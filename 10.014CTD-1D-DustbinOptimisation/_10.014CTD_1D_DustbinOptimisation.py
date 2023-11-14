@@ -32,9 +32,7 @@ def output_buildingdecision_query_userinput():
 
 def output_listoffloorplans_query_userinput(building_choice):
     #to fill in with building floors
-    dd_buildingfloors = {
-        
-        }
+    dd_buildingfloors = []
     
     #to tell user what inputs to put in, do a try/except to account for mis-input
     choice = input()

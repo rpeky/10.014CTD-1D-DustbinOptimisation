@@ -18,6 +18,8 @@ def check_filefolderexist():
         if not os.path.isdir(folder):
             print('making folder: {}'.format(folder))
             os.mkdir(folder)
+        else:
+            print('folder: {} exists'.format(folder))
 
 
 def check_floorplan_exist(graphid):

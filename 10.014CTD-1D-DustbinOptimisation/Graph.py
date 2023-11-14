@@ -13,7 +13,7 @@ class Graph():
         
         #check if graph has been created before, obtain fresh copy from master file
         if Jsonstuff.check_floorplan_exist(graphid):
-            self.dd_graph = self.return_knownfloorplangraph(graphid,0,0)
+            self.dd_graph = Jsonstuff.extract_jsonfileasobj(graphid,0,0)
         #generate if does not exist
         else:
             self.generate_data_firsttimeuse(graphid)
@@ -29,36 +29,30 @@ class Graph():
     #save in master folder
     def generate_data_firsttimeuse(self, graphid):
         
-        while True:
-            
-            pass
+        self.create_floorplan(graphid)
         
-        
-
-
         makenewfilename = graphid+"_floorplan.json"
         cwd = os.getcwd()
         newdir = os.path.join(cwd, 'FloorPlan_data_Master')
         full_path = os.path.join(newdir, makenewfilename)
         
         with open(full_path, 'w') as outfile:
-            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False)
-        
-             
-    def return_knownfloorplangraph(self):
-        pass
+            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
     
     def create_floorplan(self):
-        pass
-
-    def add_vertex(self):
+        print('Floor plan generation for {}')
+        while True:
+            pass
+            
+    
+    
+    def return_startpoints(self):
         pass
     
-    def add_edge(self, vert_origin, vert_dest, weight):
-        pass
     
     #save in working folder
     def save_graph(self):
+        
         return
     
     def printtest(self):
