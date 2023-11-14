@@ -51,6 +51,7 @@ def welcome_message():
     graphid = output_listoffloorplans_query_userinput()
     curr_graph = generate_Graph(graphid)
     user = generate_person()
+    print('welcomed')
     
 
 
