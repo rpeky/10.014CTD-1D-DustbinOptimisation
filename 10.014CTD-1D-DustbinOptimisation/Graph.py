@@ -7,6 +7,7 @@ class Graph():
         
         #known attributes
         self.dd_graph=dict()
+        self.g_id=graphid
 
         # validate needed folders exist for files
         Jsonstuff.check_filefolderexist()
@@ -23,7 +24,7 @@ class Graph():
         print('Graph created')
         
     def __del__(self):
-        self.save_graph()
+        self.save_graph(self.g_id)
         print('Job completed, saving and deleting graph')
         
     #save in master folder
@@ -39,21 +40,138 @@ class Graph():
         with open(full_path, 'w') as outfile:
             json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
     
-    def create_floorplan(self):
-        print('Floor plan generation for {}')
+    def create_floorplan(self, graphid):
+        print('Floor plan generation for {}'.format(graphid))
+        cont_list=['y','Y',1,'continue']
+        stop_list=['n','N',0,'stop']
+        
         while True:
-            pass
+            print('current graph state: ')
+            print(self.dd_graph)
+
+            while True:
+                cont = input('Do you want to continue? y/n\n')
+                try: 
+                    if cont in cont_list:
+                        print('Continuing!\n')
+                        break
+                    
+                    elif cont in stop_list:
+                        print('Stopping!\n')
+                        return
+                    
+                    else:
+                        raise ValueError
+                    
+                except ValueError:
+                    print("Invalid Input! Try again :(")
+                    continue
+                
+            vtx = ''
             
-    
+            while True:
+                vtx = input('Enter vertex ID: ')
+                try:
+                    doublecheck = input('Confirm data entry? y/n\n')
+                    if doublecheck in cont_list:
+                        self.dd_graph[vtx]=dict()
+                        break
+                    elif doublecheck in stop_list:
+                        print('Re-enter data')
+                        continue
+                    #TO IMPROVE ON THIS CATCH
+                    else:
+                        raise ValueError
+                    
+                except ValueError:
+                    print('Invalid input! Try again :(\n')
+                    continue     
+            
+            #add neighbours
+            while True:
+                adj_vtx = input("Enter adjacent vertex ID: ")
+                while True:
+                    adj_vtx_dist = input("Enter distance to adjacent vertex: ")
+                    try:
+                        if isinstance(float(adj_vtx_dist),float):
+                            adj_vtx_dist=float(adj_vtx_dist)
+                            break
+                        else:
+                            raise ValueError
+                    except ValueError:
+                        print('Invalid input not a number! Try again :(\n')
+                        continue  
+                        
+                
+                try:
+                    doublecheck = input('Confirm data entry? y/n\n')
+                    
+                    if doublecheck in cont_list:
+                        self.dd_graph[vtx].update({adj_vtx:adj_vtx_dist})
+                        
+                        
+                        ct=False
+                        while True:
+                            more_neighbour = input('Add another neighbour? y/n\n')
+                            try:
+                                if more_neighbour in cont_list:
+                                    ct=True
+                                    print('current graph state:\n')
+                                    print(self.dd_graph)
+                                    break
+                                elif more_neighbour in stop_list:
+                                    break
+                                else:
+                                    raise ValueError
+                            except ValueError:
+                                print('Invalid input! Try again :(\n')
+                                continue  
+                            
+                        if(ct):
+                            continue
+                        
+                        break
+                    
+                    elif doublecheck in stop_list:
+                        print('Re-enter data')
+                        continue
+                    else:
+                        raise ValueError
+                    
+                except ValueError:
+                    print('Invalid input! Try again :(\n')
+                    continue
+                
+
+            
+                
+    def add_neighbour(self,vtx):
+        pass
+                                    
+    def remove_vertex(self, vtx):
+        self.dd_graph.pop(vtx)
+                
+    def remove_adjvtx(self, vtx, adjvtx):
+        self.dd_graph[vtx].pop(adjvtx)
     
     def return_startpoints(self):
+        
         pass
     
+    def return_allnodes(self):
+        node_list=self.dd_graph.keys()
+        return node_list
     
     #save in working folder
-    def save_graph(self):
+    def save_graph(self,graphid):
         
-        return
+        makenewfilename = graphid+"_floorplan.json"
+        cwd = os.getcwd()
+        newdir = os.path.join(cwd, 'FloorPlan_data_Working')
+        full_path = os.path.join(newdir, makenewfilename)
+        with open(full_path, 'w') as outfile:
+            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
+
     
     def printtest(self):
         print('printtest')

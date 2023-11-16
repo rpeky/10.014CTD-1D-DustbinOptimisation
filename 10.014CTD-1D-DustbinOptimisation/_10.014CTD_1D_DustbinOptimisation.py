@@ -59,6 +59,8 @@ def welcome_message():
 def main():
     #welcome_message()
     Jsonstuff.check_filefolderexist()
+    g=Graph.Graph('test')
+    
 
 if __name__ == "__main__":
     start=time.process_time()

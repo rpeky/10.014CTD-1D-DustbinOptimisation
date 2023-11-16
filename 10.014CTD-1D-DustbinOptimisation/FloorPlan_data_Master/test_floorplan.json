@@ -1,0 +1,23 @@
+{
+    "LIFT_MAIN": {
+        "D_LIFT": 5.0
+    },
+    "D_LIFT": {
+        "D_42SG": 27.0,
+        "D_1417": 36.0,
+        "D_1414B": 64.0,
+        "LIFT_MAIN": 5.0,
+        "D_PANTRY": 43.0
+    },
+    "D_42SG": {
+        "R_42SG": 23.0,
+        "R_FACULTY": 70.0,
+        "LIFT_SERVICE": 53.0,
+        "D_TOILET": 68.0,
+        "D_LIFT": 27.0
+    },
+    "R_42": {
+        "D_42SG": 22.0,
+        "D_LIB": 8.0
+    }
+}
