@@ -15,11 +15,11 @@ class Graph():
         #check if graph has been created before, obtain fresh copy from master file
         if Jsonstuff.check_floorplan_exist(graphid):
             self.dd_graph = Jsonstuff.extract_jsonfileasobj(graphid,0,0)
+            print('current graph state: ')
+            print(self.dd_graph)
         #generate if does not exist
         else:
             self.generate_data_firsttimeuse(graphid)
-            
-
 
         print('Graph created')
         

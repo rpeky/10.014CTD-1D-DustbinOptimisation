@@ -43,7 +43,7 @@ def extract_jsonfileasobj(identifier, indextoload_suffix, indextoload_folder):
         ]
     
     filename = str(identifier) + str(filesuffix[indextoload_suffix])
-    cwd = os.getcwd
+    cwd = os.getcwd()
     newdir = os.path.join(cwd, listoffolders_toexist[indextoload_folder])
     full_path = os.path.join(newdir, filename)
     f = open(full_path)
