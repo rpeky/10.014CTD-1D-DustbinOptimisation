@@ -17,9 +17,16 @@ class Graph():
             self.dd_graph = Jsonstuff.extract_jsonfileasobj(graphid,0,0)
             print('current graph state: ')
             print(self.dd_graph)
+            self.show_neighbour()
+            self.add_visiteddictkey_setas0()
+            print(self.dd_graph)
+            
         #generate if does not exist
         else:
             self.generate_data_firsttimeuse(graphid)
+            print(self.dd_graph)
+            self.show_neighbour()
+            self.add_visiteddictkey_setas0()
 
         print('Graph created')
         
@@ -142,8 +149,15 @@ class Graph():
                     print('Invalid input! Try again :(\n')
                     continue
                 
-
-            
+    def add_visiteddictkey_setas0(self):
+        for i in self.dd_graph:
+            self.dd_graph[i]['VISITED']=0
+            print(self.dd_graph)
+                
+    def show_neighbour(self):
+        for i in self.dd_graph:
+            for j in self.dd_graph[i]:
+                print(i,j,self.dd_graph[i][j])
                 
     def add_neighbour(self,vtx):
         pass

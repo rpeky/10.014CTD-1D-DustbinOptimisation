@@ -59,7 +59,7 @@ def welcome_message():
 def main():
     #welcome_message()
     Jsonstuff.check_filefolderexist()
-    g=Graph.Graph('test')
+    g=Graph.Graph('l5test')
     
 
 if __name__ == "__main__":
