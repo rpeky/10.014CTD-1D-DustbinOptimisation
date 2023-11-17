@@ -308,21 +308,15 @@ class Graph():
     
     #save in working folder
     def save_graph(self,graphid):
-        
         makenewfilename = graphid+"_floorplan.json"
         cwd = os.getcwd()
         newdir = os.path.join(cwd, 'FloorPlan_data_Working')
         full_path = os.path.join(newdir, makenewfilename)
         with open(full_path, 'w') as outfile:
             json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
-            
-    def path_finding(self):
+
+    def display_availiable_graphs(self):
         pass
-
     
-    def printtest(self):
-        print('printtest')
-    
-    
-        
-
+    def change_graph(self):
+        pass

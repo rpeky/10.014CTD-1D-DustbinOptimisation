@@ -10,10 +10,10 @@ def generate_Graph(graphid):
     g.printtest()
     return g
 
-def generate_person():
-    u = User.User()
-    u.printtest()
-    return u
+# def generate_person():
+#     u = User.User()
+#     u.printtest()
+#     return u
 
 #User input functions
 #Terminal input output
@@ -61,7 +61,7 @@ def welcome_message():
     #to make some intro message and how to use the software
     graphid = output_listoffloorplans_query_userinput()
     curr_graph = generate_Graph(graphid)
-    user = generate_person()
+    #user = generate_person()
     print('welcomed')
     
 
