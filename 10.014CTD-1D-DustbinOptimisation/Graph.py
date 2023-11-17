@@ -47,6 +47,12 @@ class Graph():
         with open(full_path, 'w') as outfile:
             json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
     
+
+    #   floorplan naming convention
+    #   D_{LOCATION NAME} for dustbins
+    #   R_{LOCATION DESC} for rooms approximated as one dustbin
+    #   LIFT_{LOCATION}   for lift location
+
     def create_floorplan(self, graphid):
         print('Floor plan generation for {}'.format(graphid))
         cont_list=['y','Y','1','continue']

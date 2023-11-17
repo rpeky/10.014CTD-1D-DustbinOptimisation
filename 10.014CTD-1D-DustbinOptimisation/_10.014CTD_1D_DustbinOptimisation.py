@@ -40,10 +40,21 @@ def output_listoffloorplans_query_userinput(building_choice):
     #post process input choice to our decision format likely something F{}_ then concatenate with building choice
     #final form should be B{}_F{}_
     choice_processed = None
-    
     return choice_processed
 
 
+#write a function to display the possible points from the graph dictionary (can use the return startpoint fn in graph.py)
+def startpoints():
+    pass
+
+
+#write a function to use the above function's list of points to query starting point from user
+    #   floorplan naming convention
+    #   D_{LOCATION NAME} for dustbins
+    #   R_{LOCATION DESC} for rooms approximated as one dustbin
+    #   LIFT_{LOCATION}   for lift location
+def query_startpoints():
+    pass
 
 def welcome_message():
     print('test welcome message')
