@@ -14,6 +14,7 @@ class Graph():
         
         #check if graph has been created before, obtain fresh copy from master file
         if Jsonstuff.check_floorplan_exist(graphid):
+            print('graph exist\n')
             self.dd_graph = Jsonstuff.extract_jsonfileasobj(graphid,0,0)
             print('current graph state: ')
             print(self.dd_graph)
@@ -23,6 +24,7 @@ class Graph():
             
         #generate if does not exist
         else:
+            print('graph no exist\n')
             self.generate_data_firsttimeuse(graphid)
             print(self.dd_graph)
             self.show_neighbour()
@@ -37,7 +39,7 @@ class Graph():
     #save in master folder
     def generate_data_firsttimeuse(self, graphid):
         
-        self.create_floorplanv2(graphid)
+        self.create_floorplan(graphid)
         
         makenewfilename = graphid+"_floorplan.json"
         cwd = os.getcwd()
@@ -52,25 +54,29 @@ class Graph():
     #   D_{LOCATION NAME} for dustbins
     #   R_{LOCATION DESC} for rooms approximated as one dustbin
     #   LIFT_{LOCATION}   for lift location
-
+         
     def create_floorplan(self, graphid):
         print('Floor plan generation for {}'.format(graphid))
         cont_list=['y','Y','1','continue']
         stop_list=['n','N','0','stop']
         
         while True:
-            print('current graph state: ')
+            #show current graph state, initial is empty dict
+            print('----------------------------------------------------------------')
+            print('Current graph state: ')
             print(self.dd_graph)
+            print('----------------------------------------------------------------')
 
+            #start of loop, decide whether to add a vertex
             while True:
-                cont = input('Do you want to continue? y/n\n')
+                cont = input('Continue adding vertex (dustbin) to graph? y/n\n')
                 try: 
                     if cont in cont_list:
-                        print('Continuing!\n')
+                        print('Continuing!\nEntering graph building tool')
                         break
                     
                     elif cont in stop_list:
-                        print('Stopping!\n')
+                        print('Stopping!\nExiting graph building tool')
                         return
                     
                     else:
@@ -79,18 +85,22 @@ class Graph():
                 except ValueError:
                     print("Invalid Input! Try again :(")
                     continue
-                
-            vtx = ''
             
+            #add a vertex
+            vtx = ''
             while True:
-                vtx = input('Enter vertex ID: ')
+                vtx = input('Enter vertex ID to add to graph: ')
+                #double check if data entered is correct
                 try:
                     doublecheck = input('Confirm data entry? y/n\n')
+                    #if correct, add new vertex/node, escape query loop
                     if doublecheck in cont_list:
+                        if vtx in self.dd_graph.keys():
+                            break
                         self.dd_graph[vtx]=dict()
                         break
+                    #if misinput, re try by repeating the loop
                     elif doublecheck in stop_list:
-                        print('Re-enter data')
                         continue
                     #TO IMPROVE ON THIS CATCH
                     else:
@@ -100,133 +110,35 @@ class Graph():
                     print('Invalid input! Try again :(\n')
                     continue     
             
-            #add neighbours
-            while True:
-                adj_vtx = input("Enter adjacent vertex ID: ")
-                while True:
-                    adj_vtx_dist = input("Enter distance to adjacent vertex: ")
-                    try:
-                        if isinstance(float(adj_vtx_dist),float):
-                            adj_vtx_dist=float(adj_vtx_dist)
-                            break
-                        else:
-                            raise ValueError
-                    except ValueError:
-                        print('Invalid input not a number! Try again :(\n')
-                        continue  
-                        
-                
-                try:
-                    doublecheck = input('Confirm data entry? y/n\n')
-                    
-                    if doublecheck in cont_list:
-                        self.dd_graph[vtx].update({adj_vtx:adj_vtx_dist})
-
-                        ct=False
-                        while True:
-                            more_neighbour = input('Add another neighbour? y/n\n')
-                            try:
-                                if more_neighbour in cont_list:
-                                    ct=True
-                                    print('current graph state:\n')
-                                    print(self.dd_graph)
-                                    break
-                                elif more_neighbour in stop_list:
-                                    break
-                                else:
-                                    raise ValueError
-                            except ValueError:
-                                print('Invalid input! Try again :(\n')
-                                continue  
-                            
-                        if(ct):
-                            continue
-                        
-                        break
-                    
-                    elif doublecheck in stop_list:
-                        print('Re-enter data')
-                        continue
-                    else:
-                        raise ValueError
-                    
-                except ValueError:
-                    print('Invalid input! Try again :(\n')
-                    continue
-                
-    def create_floorplanv2(self, graphid):
-        print('Floor plan generation for {}'.format(graphid))
+            #add adjacent neighbours to vertex
+            self.add_neighbour(vtx)
+            
+ 
+    def add_neighbour(self,vtx):
+        print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
+        print('Adjacent neighbour creation tool for {}'.format(vtx))
         cont_list=['y','Y','1','continue']
         stop_list=['n','N','0','stop']
         
         while True:
-            print('current graph state: ')
-            print(self.dd_graph)
-
-            while True:
-                cont = input('Do you want to continue? y/n\n')
-                try: 
-                    if cont in cont_list:
-                        print('Continuing!\n')
-                        break
-                    
-                    elif cont in stop_list:
-                        print('Stopping!\n')
-                        return
-                    
-                    else:
-                        raise ValueError
-                    
-                except ValueError:
-                    print("Invalid Input! Try again :(")
-                    continue
-                
-            vtx = ''
-            
-            while True:
-                vtx = input('Enter vertex ID: ')
-                try:
-                    doublecheck = input('Confirm data entry? y/n\n')
-                    if doublecheck in cont_list:
-                        self.dd_graph[vtx]=dict()
-                        break
-                    elif doublecheck in stop_list:
-                        print('Re-enter data')
-                        continue
-                    #TO IMPROVE ON THIS CATCH
-                    else:
-                        raise ValueError
-                    
-                except ValueError:
-                    print('Invalid input! Try again :(\n')
-                    continue     
-            
-            self.add_neighbour(vtx)
-                
-    def add_visiteddictkey_setas0(self):
-        for i in self.dd_graph:
-            self.dd_graph[i]['VISITED']=0
-            print(self.dd_graph)
-                
-    def show_neighbour(self):
-        for i in self.dd_graph:
-            for j in self.dd_graph[i]:
-                print(i,j,self.dd_graph[i][j])
-                
-    def add_neighbour(self,vtx):
-        cont_list=['y','Y','1','continue']
-        stop_list=['n','N','0','stop']
-        while True:
-            cfm_msg=input('Confirm adding neighbour to {} y/n:\n'.format(vtx))
+            cfm_msg=input('Confirm adding neighbours to {} y/n:\n'.format(vtx))
             try:
                 if cfm_msg in cont_list:
-                    print('current graph state: ',self.dd_graph)
-                    
+                    #continue adding neighbour until negative input causes break
                     while True:
-                        adj_vtx = input("Enter adjacent vertex ID: ")
+                        #show current graph state
+                        print('****************************************************************')
+                        print('Current graph state: ')
+                        print(self.dd_graph)
+                        print('****************************************************************')
+                        
+                        #query for adjacent node/dustbin
+                        adj_vtx = input("Enter adjacent vertex ID to add: ")
                         while True:
                             adj_vtx_dist = input("Enter distance to adjacent vertex: ")
+                            #check for distance value, convert to float if possible, if not int/float re enter
                             try:
+                                #break if valid value
                                 if isinstance(float(adj_vtx_dist),float):
                                     adj_vtx_dist=float(adj_vtx_dist)
                                     break
@@ -236,32 +148,21 @@ class Graph():
                                 print('Invalid input not a number! Try again :(\n')
                                 continue  
                             
+                        #confirm adjacent node name is correct    
                         try:
                             doublecheck = input('Confirm data entry? y/n\n')
-                    
+                            #if valid, update dictionary with new data
                             if doublecheck in cont_list:
                                 self.dd_graph[vtx].update({adj_vtx:adj_vtx_dist})
-
-                                ct=False
-                                while True:
-                                    more_neighbour = input('Add another neighbour? y/n\n')
-                                    try:
-                                        if more_neighbour in cont_list:
-                                            ct=True
-                                            print('current graph state:\n')
-                                            print(self.dd_graph)
-                                            break
-                                        elif more_neighbour in stop_list:
-                                            break
-                                        else:
-                                            raise ValueError
-                                    except ValueError:
-                                        print('Invalid input! Try again :(\n')
-                                        continue  
-                            
-                                if(ct):
-                                    continue
-                        
+                                #undirected graph, so we can add the opposite as well
+                                if adj_vtx not in self.dd_graph.keys():
+                                    self.dd_graph[adj_vtx]=dict()
+                                self.dd_graph[adj_vtx].update({vtx:adj_vtx_dist})
+                                print('Graph Updated')
+                                print('0000000000000000000000000000000000000000000000000000000000000000')
+                                print('Current graph state: ')
+                                print(self.dd_graph)
+                                print('0000000000000000000000000000000000000000000000000000000000000000')
                                 break
                     
                             elif doublecheck in stop_list:
@@ -273,17 +174,30 @@ class Graph():
                         except ValueError:
                             print('Invalid input! Try again :(\n')
                             continue
-                    
+                        
+                #if no more neighbours needed, end function    
                 elif cfm_msg in stop_list:
                     return
                 
+                #raise error if unexpected input
                 else:
                     raise ValueError
                 
             except ValueError:
                 print('Invalid input! Try again :(\n')
                 continue
+    
+    def add_visiteddictkey_setas0(self):
+        for i in self.dd_graph:
+            self.dd_graph[i]['VISITED']=0
+            print(self.dd_graph)
                 
+    def show_neighbour(self):
+        for i in self.dd_graph:
+            for j in self.dd_graph[i]:
+                print(i,j,self.dd_graph[i][j])
+                
+            
     def add_visit(self,vtx):
         self.dd_graph[vtx]['VISITED']+=1
                                     

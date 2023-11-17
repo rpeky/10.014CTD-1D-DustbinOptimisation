@@ -6,7 +6,7 @@ import Jsonstuff
 # Object generation
 # graph id format
 def generate_Graph(graphid):
-    g = Graph.Graph()
+    g = Graph.Graph(graphid)
     g.printtest()
     return g
 
@@ -70,7 +70,8 @@ def welcome_message():
 def main():
     #welcome_message()
     Jsonstuff.check_filefolderexist()
-    g=Graph.Graph('test')
+    Jsonstuff.check_floorplan_exist('aaa')
+    g=Graph.Graph('aaa')
     l2=g.return_allnodes()
     print('list of all nodes: \n{}'.format(l2))
     l3=g.return_startpoints()

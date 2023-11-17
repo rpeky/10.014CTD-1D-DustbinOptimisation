@@ -8,10 +8,12 @@ class User():
         self.rubbish_in_cart = 0
         self.job_completed = False
         self.current_vertex = ''
-        
+    
+    #estimate a cart realistic max volume
     def check_cart_fullness(self):
         pass
     
+    #force a nearest path to dump rubbish in cart
     def action_emptycart(self):
         pass
 
