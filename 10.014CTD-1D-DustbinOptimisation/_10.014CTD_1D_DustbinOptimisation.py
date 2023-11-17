@@ -7,7 +7,6 @@ import Jsonstuff
 # graph id format
 def generate_Graph(graphid):
     g = Graph.Graph(graphid)
-    g.printtest()
     return g
 
 # def generate_person():
@@ -19,27 +18,32 @@ def generate_Graph(graphid):
 #Terminal input output
 def output_buildingdecision_query_userinput():
     #fill up with building numbers, decide what data type to put in
-    buildings = []
+    buildings = ['Building 1', 'Building 2']
     print(buildings)
     
     #to tell user what inputs to put in, do a try/except to account for mis-input
-    choice = input()
+    #maybe simplify the options down to 1 for building 1, 2 for building 2 or something
+    choice = input('Enter Building choice: ')
     
     #post process input choice to our decision format likely something B{}_ , return to be concatenated with floor
-    choice_processed = None
+    choice_processed = 'B{}_'.format(choice)
     
     return output_listoffloorplans_query_userinput(choice_processed)
 
 def output_listoffloorplans_query_userinput(building_choice):
     #to fill in with building floors
     dd_buildingfloors = []
+    for i in range(2,8):
+        dd_buildingfloors.append(i)
+    print(dd_buildingfloors)
     
     #to tell user what inputs to put in, do a try/except to account for mis-input
-    choice = input()
+    choice = input('Enter floor choice: ')
+
 
     #post process input choice to our decision format likely something F{}_ then concatenate with building choice
     #final form should be B{}_F{}_
-    choice_processed = None
+    choice_processed = building_choice+'F{}_'.format(choice)
     return choice_processed
 
 
@@ -59,7 +63,7 @@ def query_startpoints():
 def welcome_message():
     print('test welcome message')
     #to make some intro message and how to use the software
-    graphid = output_listoffloorplans_query_userinput()
+    graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
     #user = generate_person()
     print('welcomed')
@@ -68,14 +72,14 @@ def welcome_message():
 
 
 def main():
-    #welcome_message()
-    Jsonstuff.check_filefolderexist()
-    Jsonstuff.check_floorplan_exist('aaa')
-    g=Graph.Graph('aaa')
-    l2=g.return_allnodes()
-    print('list of all nodes: \n{}'.format(l2))
-    l3=g.return_startpoints()
-    print('list of all startpoints: \n{}'.format(l3))
+    welcome_message()
+    # Jsonstuff.check_filefolderexist()
+    # Jsonstuff.check_floorplan_exist('aaab')
+    # g=Graph.Graph('test')
+    # l2=g.return_allnodes()
+    # print('list of all nodes: \n{}'.format(l2))
+    # l3=g.return_startpoints()
+    # print('list of all startpoints: \n{}'.format(l3))
     # g.add_neighbour('D_PANTRY')
     # l2=g.return_allnodes()
     # print('list of all nodes: \n{}'.format(l2))

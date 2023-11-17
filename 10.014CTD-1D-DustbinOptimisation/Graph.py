@@ -20,9 +20,10 @@ class Graph():
             print(self.dd_graph)
             self.show_neighbour()
             self.add_visiteddictkey_setas0()
-            print(self.dd_graph)
+            print('\nStarting points:\n',self.return_startpoints())
+            print('\nAll points:\n',self.return_allnodes())
             
-        #generate if does not exist
+        #generate if file does not exist
         else:
             print('graph no exist\n')
             self.generate_data_firsttimeuse(graphid)
@@ -190,13 +191,14 @@ class Graph():
     def add_visiteddictkey_setas0(self):
         for i in self.dd_graph:
             self.dd_graph[i]['VISITED']=0
-            print(self.dd_graph)
                 
     def show_neighbour(self):
+        
         for i in self.dd_graph:
+            print('start        end         distance')
             for j in self.dd_graph[i]:
-                print(i,j,self.dd_graph[i][j])
-                
+                print('{}       {}      {}'.format(i,j,self.dd_graph[i][j]))      
+            print('-------------------------------------')
             
     def add_visit(self,vtx):
         self.dd_graph[vtx]['VISITED']+=1

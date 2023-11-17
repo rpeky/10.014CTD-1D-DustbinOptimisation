@@ -1,6 +1,3 @@
-
-
-
 class User():
     #to decide what user options there are
     def __init__(self):
