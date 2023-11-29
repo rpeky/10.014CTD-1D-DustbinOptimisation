@@ -230,6 +230,20 @@ class Graph():
         full_path = os.path.join(newdir, makenewfilename)
         with open(full_path, 'w') as outfile:
             json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
+            
+    def change_graph_useworkingdata(self):
+        #make a list of displayable graphs/file names
+        #make a selectable list in the display 1. B1_F1_floorplan.json
+        #                                      2. B1_F2_floorplan.json etc
+        #maybe try some kind of enumerate list after getting the file names then format the strings
+        #take input 
+        self.display_availiable_graphs()
+        #some error checking - try except loop
+        selection = input()
+        #some confirmation message
+        self.dd_graph = Jsonstuff.extract_jsonfileasobj(selection,1,1)
+        #print some confirmation message
+        
 
     def display_availiable_graphs(self):
         pass
