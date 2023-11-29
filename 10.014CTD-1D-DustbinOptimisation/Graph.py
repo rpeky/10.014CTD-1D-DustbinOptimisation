@@ -191,9 +191,9 @@ class Graph():
     def add_visiteddictkey_setas0(self):
         for i in self.dd_graph:
             self.dd_graph[i]['VISITED']=0
-                
+  
+
     def show_neighbour(self):
-        
         for i in self.dd_graph:
             print('start        end         distance')
             for j in self.dd_graph[i]:
@@ -229,7 +229,13 @@ class Graph():
         newdir = os.path.join(cwd, 'FloorPlan_data_Working')
         full_path = os.path.join(newdir, makenewfilename)
         with open(full_path, 'w') as outfile:
-            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
+            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False)
+            
+    def pathfind_dijkstra(self, startpoint):
+        pass
+    
+    def pathfind_athome(self):
+        pass
 
     def display_availiable_graphs(self):
         pass
