@@ -245,6 +245,12 @@ class Graph():
         #print some confirmation message
         
 
+    def pathfind_dijkstra(self, startpoint):
+        pass
+    
+    def pathfind_athome(self):
+        pass
+    
     def display_availiable_graphs(self):
         pass
     
