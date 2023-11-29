@@ -243,18 +243,31 @@ class Graph():
         #some confirmation message
         self.dd_graph = Jsonstuff.extract_jsonfileasobj(selection,1,1)
         #print some confirmation message
+
+
+## path finding stuff
+    def prioq(self):
+        pass
+
+    def relaxation(self):
+        pass
             
     def pathfind_dijkstra(self, startpoint):
-        pass
+        djk_dict=dict()
+        #generate a dictinonary of distance values
+        for i in self.dd_graph.keys():
+            if (i==startpoint):
+                continue
+            djk_dict[i] = 1000000
+            
+        #add adjacent distances        
     
     def pathfind_athome(self):
         pass
 
-    def pathfind_dijkstra(self, startpoint):
-        pass
     
-    def pathfind_athome(self):
-        pass
+
+
     
     def display_availiable_graphs(self):
         pass

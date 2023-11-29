@@ -46,7 +46,7 @@ def output_listoffloorplans_query_userinput(building_choice):
     choice_processed = building_choice+'F{}_'.format(choice)
     return choice_processed
 
-
+#if graph exists
 #write a function to display the possible points from the graph dictionary (can use the return startpoint fn in graph.py)
 def startpoints():
     pass
@@ -59,6 +59,7 @@ def startpoints():
     #   LIFT_{LOCATION}   for lift location
 def query_startpoints():
     pass
+
 
 def welcome_message():
     print('test welcome message')
