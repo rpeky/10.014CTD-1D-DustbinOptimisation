@@ -17,13 +17,13 @@ class User():
     def __del__(self):
         print('Job completed, deleting user')
         
-
     def printtest(self):
         print('printtest')
 
 class Collector(User):
-    def __init__(self):
+    def __init__(self, ID):
         super().__init__()
+        self.collector_ID=ID
         
     def __del__(self):
         print('Job completed, clocking off')

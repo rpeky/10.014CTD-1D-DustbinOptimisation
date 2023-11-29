@@ -191,9 +191,9 @@ class Graph():
     def add_visiteddictkey_setas0(self):
         for i in self.dd_graph:
             self.dd_graph[i]['VISITED']=0
-                
+  
+
     def show_neighbour(self):
-        
         for i in self.dd_graph:
             print('start        end         distance')
             for j in self.dd_graph[i]:
@@ -243,7 +243,12 @@ class Graph():
         #some confirmation message
         self.dd_graph = Jsonstuff.extract_jsonfileasobj(selection,1,1)
         #print some confirmation message
-        
+            
+    def pathfind_dijkstra(self, startpoint):
+        pass
+    
+    def pathfind_athome(self):
+        pass
 
     def pathfind_dijkstra(self, startpoint):
         pass
