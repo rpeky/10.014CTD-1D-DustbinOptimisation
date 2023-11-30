@@ -257,10 +257,33 @@ class Graph():
         #generate a dictinonary of distance values
         for i in self.dd_graph.keys():
             if (i==startpoint):
-                continue
-            djk_dict[i] = 1000000
-            
-        #add adjacent distances        
+                djk_dict[i] = 0
+            else:
+                djk_dict[i] = 1000000
+        # keep track of visited and unvisited vertices
+        unvisited_vtxs = set()
+
+        # Start pathfinding
+        current_vtx = startpoint
+        while unvisited_vtxs:
+            # Mark current vertex as visited
+            unvisited_vtxs.pop(current_vtx)
+
+            # Get list of adjacent vertices
+            adj_vtxs = self.dd_graph[current_vtx].keys()
+
+            # Update distances of adjacent vertices
+            for adj_vtx in adj_vtxs:
+                old_dist = djk_dict[adj_vtx]
+                new_dist = djk_dict[current_vtx] + self.dd_graph[current_vtx][adj_vtx]
+                if new_dist < old_dist:
+                    djk_dict[adj_vtx] = new_dist
+
+            # Visit nearest adjacent vertex
+            unvisited_adj_vtxs = set(adj_vtxs) & unvisited_vtxs
+            current_vtx = min(unvisited_adj_vtxs, key=self.dd_graph[current_vtx].get)
+        return djk_dict
+
     
     def pathfind_athome(self):
         pass
