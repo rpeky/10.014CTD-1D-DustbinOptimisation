@@ -23,6 +23,8 @@ class Graph():
             print('\nStarting points:\n',self.return_startpoints())
             print('\nAll points:\n',self.return_allnodes())
             
+            #offer options
+            
         #generate if file does not exist
         else:
             print('graph no exist\n')
@@ -48,8 +50,7 @@ class Graph():
         full_path = os.path.join(newdir, makenewfilename)
         
         with open(full_path, 'w') as outfile:
-            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
-    
+            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False)     
 
     #   floorplan naming convention
     #   D_{LOCATION NAME} for dustbins
@@ -113,8 +114,7 @@ class Graph():
             
             #add adjacent neighbours to vertex
             self.add_neighbour(vtx)
-            
- 
+
     def add_neighbour(self,vtx):
         print('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
         print('Adjacent neighbour creation tool for {}'.format(vtx))
@@ -192,7 +192,6 @@ class Graph():
         for i in self.dd_graph:
             self.dd_graph[i]['VISITED']=0
   
-
     def show_neighbour(self):
         for i in self.dd_graph:
             print('start        end         distance')
@@ -244,23 +243,16 @@ class Graph():
         self.dd_graph = Jsonstuff.extract_jsonfileasobj(selection,1,1)
         #print some confirmation message
 
-
 ## path finding stuff
-    def prioq(self):
-        pass
-
-    def relaxation(self):
-        pass
-
     def pathfind_dijkstra(self, startpoint):
         djk_dict = dict()
         # generate a dictinonary of distance values
         vtxs = set(self.dd_graph.keys())
         for vtx in vtxs:
             if (vtx == startpoint):
-                djk_dict[vtx] = 0
+                djk_dict[vtx] = (0,[])
             else:
-                djk_dict[vtx] = 1000000
+                djk_dict[vtx] = (float('inf'),[])
         # keep track of visited and unvisited vertices
         visited_vtxs = set()
 
@@ -275,30 +267,73 @@ class Graph():
 
             # Update distances of adjacent vertices
             for adj_vtx in adj_vtxs:
-                old_dist = djk_dict[adj_vtx]
-                new_dist = djk_dict[current_vtx] + self.dd_graph[current_vtx][adj_vtx]
+                old_dist = djk_dict[adj_vtx][0]
+                old_path = djk_dict[adj_vtx][1]
+                new_dist = djk_dict[current_vtx][0] + self.dd_graph[current_vtx][adj_vtx]
+                new_path = djk_dict[current_vtx][1] + [current_vtx]
                 if new_dist < old_dist:
-                    djk_dict[adj_vtx] = new_dist
+                    djk_dict[adj_vtx] = (new_dist,new_path)
 
             # Unvisited vertex with minimum distance is visited next
             current_vtx = None
             current_vtx_dist = float('inf')
-            for vtx, dist in djk_dict.items():
-                if vtx not in visited_vtxs and djk_dict[vtx] < current_vtx_dist:
+            for vtx, tuptup in djk_dict.items():
+                if vtx not in visited_vtxs and tuptup[0] < current_vtx_dist:
                     current_vtx = vtx
-                    current_vtx_dist = djk_dict[vtx]
+                    current_vtx_dist = tuptup[0]
             if current_vtx == None:
                 break
         return djk_dict
-
     
-    def pathfind_athome(self):
-        pass
+    #for unlimited space in rubbish cart, solutions = number of starting nodes, unlikely to have two destinations with the same distance
+    #greedy solution involves taking the shortest distance to the next unvisited dustbin
+    def greedy_circuit(self, startpoint):
+        #since set maintains order, we create a set of the order to visit
+        sol=set()
+        
+        #total number of dustbins on floor = total vertex - lifts, to check if solution is a hamitonian cycle
+        start_point_lift=self.return_startpoints()
+        set_maxvisits = len(self.return_allnodes()) - len(start_point_lift)
+        
+        curr_pos = startpoint
+        tour=[]
 
-    
-
-
-    
+        while len(sol)<set_maxvisits:
+            dd_djk_sol = self.pathfind_dijkstra(curr_pos)
+            nearest_sol = min(dd_djk_sol, key=dd_djk_sol.get)
+            adj_neigh = self.dd_graph[curr_pos].keys()
+            
+            #filter out if shortest distance is a lift
+            while True:
+                if nearest_sol[:4]!="LIFT":
+                    break
+                dd_djk_sol.pop(nearest_sol)
+                nearest_sol = min(dd_djk_sol, key=dd_djk_sol.get)                
+            
+            #check initial visit, take shortest if is neighbour, 
+            #add to visited and go next iter
+            if nearest_sol not in sol and nearest_sol in adj_neigh:
+                sol.add(nearest_sol)
+                self.dd_graph[nearest_sol]["VISITED"]+=1
+                tour.append((dd_djk_sol[nearest_sol],nearest_sol))
+                curr_pos = nearest_sol
+                continue
+            
+            #initial visit, but not neighbour
+            #find path to neighbour, append path and distances to tour            
+            elif (nearest_sol not in sol) and (nearest_sol not in adj_neigh):
+                break
+                
+                    
+     
+            
+        return tour
+            
+            
+        
+        
+        
+        
     def display_availiable_graphs(self):
         pass
     

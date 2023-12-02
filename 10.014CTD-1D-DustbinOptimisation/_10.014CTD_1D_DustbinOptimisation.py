@@ -66,6 +66,8 @@ def welcome_message():
     #to make some intro message and how to use the software
     graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
+    print(curr_graph.pathfind_dijkstra("D_LIBRARY"))
+
     #user = generate_person()
     print('welcomed')
     

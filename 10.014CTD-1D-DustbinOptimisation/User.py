@@ -1,3 +1,5 @@
+import Graph
+
 class User():
     #to decide what user options there are
     def __init__(self):
@@ -12,10 +14,10 @@ class User():
     def check_cart_fullness(self):
         pass
     
-    #force a nearest path to dump rubbish in cart
-    def action_emptycart(self):
-        # Another path-finding algorithm
+    #force a nearest path to dump rubbish in cart, use Graph.pathfind_dijkstra(self.current_vertex)
+    def action_emptycart(self):        
         self.rubbish_in_cart = 0
+        
         
     def validate_carthasspace(self, amount):
         return self.CART_MAX_VAL - self.rubbish_in_cart - amount > 0
