@@ -251,26 +251,27 @@ class Graph():
 
     def relaxation(self):
         pass
-            
+
     def pathfind_dijkstra(self, startpoint):
-        djk_dict=dict()
-        #generate a dictinonary of distance values
-        for i in self.dd_graph.keys():
-            if (i==startpoint):
-                djk_dict[i] = 0
+        djk_dict = dict()
+        # generate a dictinonary of distance values
+        vtxs = set(self.dd_graph.keys())
+        for vtx in vtxs:
+            if (vtx == startpoint):
+                djk_dict[vtx] = 0
             else:
-                djk_dict[i] = 1000000
+                djk_dict[vtx] = 1000000
         # keep track of visited and unvisited vertices
-        unvisited_vtxs = set()
+        visited_vtxs = set()
 
         # Start pathfinding
         current_vtx = startpoint
-        while unvisited_vtxs:
+        while True:
             # Mark current vertex as visited
-            unvisited_vtxs.pop(current_vtx)
+            visited_vtxs.add(current_vtx)
 
             # Get list of adjacent vertices
-            adj_vtxs = self.dd_graph[current_vtx].keys()
+            adj_vtxs = [i for i in self.dd_graph[current_vtx].keys() if i in vtxs]
 
             # Update distances of adjacent vertices
             for adj_vtx in adj_vtxs:
@@ -279,9 +280,15 @@ class Graph():
                 if new_dist < old_dist:
                     djk_dict[adj_vtx] = new_dist
 
-            # Visit nearest adjacent vertex
-            unvisited_adj_vtxs = set(adj_vtxs) & unvisited_vtxs
-            current_vtx = min(unvisited_adj_vtxs, key=self.dd_graph[current_vtx].get)
+            # Unvisited vertex with minimum distance is visited next
+            current_vtx = None
+            current_vtx_dist = float('inf')
+            for vtx, dist in djk_dict.items():
+                if vtx not in visited_vtxs and djk_dict[vtx] < current_vtx_dist:
+                    current_vtx = vtx
+                    current_vtx_dist = djk_dict[vtx]
+            if current_vtx == None:
+                break
         return djk_dict
 
     
