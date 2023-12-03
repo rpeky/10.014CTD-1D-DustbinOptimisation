@@ -18,7 +18,6 @@ class User():
     def action_emptycart(self):        
         self.rubbish_in_cart = 0
         
-        
     def validate_carthasspace(self, amount):
         return self.CART_MAX_VAL - self.rubbish_in_cart - amount > 0
         

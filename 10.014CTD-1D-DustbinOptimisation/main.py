@@ -1,5 +1,5 @@
 import time
-import User
+#import User
 import Graph
 import Jsonstuff
 
@@ -19,7 +19,7 @@ def generate_Graph(graphid):
 def output_buildingdecision_query_userinput():
     while True:
         buildings = ['1', '2', '3', '5']
-        b_choice = input('Buildings: 1, 2, 3, 5. Enter building choice:')
+        b_choice = input('Buildings: 1, 2, 3, 5. Enter building choice: ')
         if b_choice in buildings:
             print('Selected building: Building {}'.format(b_choice))
             return output_listoffloorplans_query_userinput(b_choice)
@@ -29,7 +29,7 @@ def output_buildingdecision_query_userinput():
 
 def output_listoffloorplans_query_userinput(b_choice):
     while True:
-        f_choice = input('Enter floor choice:')
+        f_choice = input('Enter floor choice: ')
         if f_choice.isnumeric():
             try:
                 return output_choice_processed(b_choice,f_choice)
@@ -39,37 +39,43 @@ def output_listoffloorplans_query_userinput(b_choice):
             print('Enter a valid integer.')
             
 def output_choice_processed(b_choice,f_choice):
+    confirmation = ['y','Y','1','continue']
     choice_processed = "B" + b_choice + "_F" + f_choice + "_"
     c_processed = "Building " + b_choice + " Level " + f_choice
     print('Chosen Floor: ' + c_processed + ". Enter y to confirm, n to reselect.")
-    if input('Confirm?') == 'y':
+    if input('Confirm?\n') in confirmation:
         return choice_processed
     else:
         return output_buildingdecision_query_userinput()
 
 #if graph exists
 #write a function to display the possible points from the graph dictionary (can use the return startpoint fn in graph.py)
-def startpoints():
+def startpoints(curr_graph):
     lift_start=curr_graph.return_startpoints()
     misc_start=curr_graph.return_allnodes()
     for node in misc_start:
         if node in lift_start:
             misc_start.remove(node)
-    return 'Lifts:{}\nBins:{}'.format(lift_start,misc_start)
-    
-
+    return 'Lifts:\n{}\nDustbins:\n{}\n'.format(lift_start,misc_start)
 
 #write a function to use the above function's list of points to query starting point from user
     #   floorplan naming convention
     #   D_{LOCATION NAME} for dustbins
     #   R_{LOCATION DESC} for rooms approximated as one dustbin
     #   LIFT_{LOCATION}   for lift location
-def query_startpoints():
+def query_startpoints(curr_graph):
+    confirmation = ['y','Y','1','continue']
     while True:
-        startpoint=input('Where would you like to begin? Please select from the following options:\n{}'.format(startpoints()))
-        if startpoint in curr_graph.return_allnodes():
+        #check if 
+        startpoint=input('\n------------------------------------------------------------------------------\
+                         \nWhere would you like to begin? Please select from the following options:\n{}\n\
+                         \nYou can copy and paste from the selection above!\n\nChoice: '.format(startpoints(curr_graph)))
+        #limit options
+        nodes = curr_graph.return_allnodes()       
+        
+        if startpoint in nodes:
             confirm=input('Start from {}? y/n'.format(startpoint))
-            if confirm=='y':
+            if confirm in confirmation:
                 return curr_graph.greedy_circuit(startpoint)
             else:
                 print('Please select a new startpoint.')
@@ -84,10 +90,11 @@ def welcome_message():
     #to make some intro message and how to use the software
     graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
-    print(curr_graph.pathfind_dijkstra("D_LIBRARY"))
-    print(curr_graph.greedy_circuit("LIFT_SERVICE"))
+    query_startpoints(curr_graph)
+    # print(curr_graph.pathfind_dijkstra("D_LIBRARY"))
+    # print(curr_graph.greedy_circuit("LIFT_SERVICE"))
     #user = generate_person()
-    print('welcomed')
+    print('The ancient one goes back to sleep')
     
 
 

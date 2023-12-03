@@ -18,20 +18,21 @@ class Graph():
             self.dd_graph = Jsonstuff.extract_jsonfileasobj(graphid,0,0)
             print('current graph state: ')
             print(self.dd_graph)
+            print('\nAdjacent relationship: \n')
             self.show_neighbour()
             
             print('\nStarting points:\n',self.return_startpoints())
-            print('\nAll points:\n',self.return_allnodes())
-            print('Changing Graph source')
+            print('\nAll points on graph:\n',self.return_allnodes())
+            print('\nChanging Graph source to working set\n')
             self.change_graph_useworkingdata(graphid)
             self.add_visiteddictkey_setas0()
-            print('Changed')
+            print('\nChanged')
             
             #offer options
             
         #generate if file does not exist
         else:
-            print('graph no exist\n')
+            print('graph no exist :(\n')
             self.generate_data_firsttimeuse(graphid)
             print(self.dd_graph)
             self.show_neighbour()
@@ -199,10 +200,10 @@ class Graph():
   
     def show_neighbour(self):
         for i in self.dd_graph:
-            print('start        end         distance')
+            print('{:20s}{:18s}{:15s}'.format('Start', 'End', 'Distance'))
             for j in self.dd_graph[i]:
-                print('{}       {}      {}'.format(i,j,self.dd_graph[i][j]))      
-            print('-------------------------------------')
+                print('{:20s}{:15s}{:10.1f}'.format(i,j,self.dd_graph[i][j]))      
+            print('----------------------------------------------')
             
     def add_visit(self,vtx):
         self.dd_graph[vtx]['VISITED']+=1
@@ -233,15 +234,15 @@ class Graph():
         newdir = os.path.join(cwd, 'FloorPlan_data_Working')
         full_path = os.path.join(newdir, makenewfilename)
         with open(full_path, 'w') as outfile:
-            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
+            json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False)
             
+    #semi debug tool, currently used to swap from master copy to working copy to reduce chance of overwriting recorded floor data        
     def change_graph_useworkingdata(self, graphid):
         #make a list of displayable graphs/file names
         #make a selectable list in the display 1. B1_F1_floorplan.json
         #                                      2. B1_F2_floorplan.json etc
         #maybe try some kind of enumerate list after getting the file names then format the strings
         #take input 
-        self.display_availiable_graphs()
         #some error checking - try except loop
         #selection = input()
         #some confirmation message
@@ -334,22 +335,22 @@ class Graph():
                     
             #add to tour
             if tovisit is not None:
-                print(tour)
+                #print(tour)
                 #self.dd_graph[tovisit]["VISITED"] += 1
                 path_to_nearest = dd_djksol[tovisit][1]
-                print(path_to_nearest)
+                #print(path_to_nearest)
                 #walk  of shame to revisit dustbins
                 for visit in path_to_nearest:
                     self.dd_graph[visit]["VISITED"] += 1
                 tour += path_to_nearest
-                print(tour)
+                #print(tour)
                 #sol.add(tovisit)
                 curr_pos = tovisit
                 totaldist += shortest_dist
                 
             #if nothing else, path find to nearest lift
             else:
-                print("returning to lift")
+                #print("returning to lift")
                 shortest_dist = float('inf')
                 tovisit = None
                 dd_djksol = self.pathfind_dijkstra(curr_pos)
@@ -373,18 +374,19 @@ class Graph():
                     
             
             #print(sol)        
-            print(dd_djksol)
-            print(neigh_list)
-            print(shortest_dist)
-            print(tovisit)
-            print(tour)
+            # print(dd_djksol)
+            # print(neigh_list)
+            # print(shortest_dist)
+            # print(tovisit)
+            # print(tour)
             
             
             
-            print("____________")
+        #     print("____________")
             
-        print(len(tour))
+        # print(len(tour))
         res = (tour, totaldist)
+        print(res)
         return res      
         
     def display_availiable_graphs(self):
