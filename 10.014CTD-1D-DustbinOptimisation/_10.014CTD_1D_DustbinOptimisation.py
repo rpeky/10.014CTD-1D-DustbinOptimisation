@@ -39,7 +39,7 @@ def output_listoffloorplans_query_userinput(b_choice):
             print('Enter a valid integer.')
             
 def output_choice_processed(b_choice,f_choice):
-    choice_processed = "B" + b_choice + "F" + f_choice
+    choice_processed = "B" + b_choice + "_F" + f_choice + "_"
     c_processed = "Building " + b_choice + " Level " + f_choice
     print('Chosen Floor: ' + c_processed + ". Enter y to confirm, n to reselect.")
     if input('Confirm?') == 'y':
