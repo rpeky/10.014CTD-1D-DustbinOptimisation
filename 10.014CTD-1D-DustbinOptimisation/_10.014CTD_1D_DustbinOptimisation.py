@@ -17,34 +17,35 @@ def generate_Graph(graphid):
 #User input functions
 #Terminal input output
 def output_buildingdecision_query_userinput():
-    #fill up with building numbers, decide what data type to put in
-    buildings = ['Building 1', 'Building 2']
-    print(buildings)
-    
-    #to tell user what inputs to put in, do a try/except to account for mis-input
-    #maybe simplify the options down to 1 for building 1, 2 for building 2 or something
-    choice = input('Enter Building choice: ')
-    
-    #post process input choice to our decision format likely something B{}_ , return to be concatenated with floor
-    choice_processed = 'B{}_'.format(choice)
-    
-    return output_listoffloorplans_query_userinput(choice_processed)
+    while True:
+        buildings = ['1', '2', '3', '5']
+        b_choice = input('Buildings: 1, 2, 3, 5. Enter building choice:')
+        if b_choice in buildings:
+            print('Selected building: Building {}'.format(b_choice))
+            return output_listoffloorplans_query_userinput(b_choice)
+        else:
+            print ('Enter a valid building number (1, 2, 3, 5).')    
 
-def output_listoffloorplans_query_userinput(building_choice):
-    #to fill in with building floors
-    dd_buildingfloors = []
-    for i in range(2,8):
-        dd_buildingfloors.append(i)
-    print(dd_buildingfloors)
-    
-    #to tell user what inputs to put in, do a try/except to account for mis-input
-    choice = input('Enter floor choice: ')
+def output_listoffloorplans_query_userinput(b_choice):
+    while True:
+        f_choice = input('Enter floor choice:')
+        if f_choice.isnumeric():
+            try:
+                return output_listoffloorplans_query_userinput(b_choice,f_choice)
+            except KeyError:
+                print ('Enter a floor number from 2 to 7.')
+        else:
+            print('Enter a valid integer.')
+            
+def output_listoffloorplans_query_userinput(b_choice,f_choice):
+    choice_processed = "B" + b_choice + "F" + f_choice
+    c_processed = "Building " + b_choice + " Level " + f_choice
+    print('Chosen Floor: ' + c_processed + ". Enter 'Yes' to confirm, N to exit.")
+    if input('Confirm?') == 'Yes':
+        return choice_processed
+    else:
+        return output_buildingdecision_query_userinput(building_choice)
 
-
-    #post process input choice to our decision format likely something F{}_ then concatenate with building choice
-    #final form should be B{}_F{}_
-    choice_processed = building_choice+'F{}_'.format(choice)
-    return choice_processed
 
 
 #write a function to display the possible points from the graph dictionary (can use the return startpoint fn in graph.py)
