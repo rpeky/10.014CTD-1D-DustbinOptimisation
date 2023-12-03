@@ -336,7 +336,7 @@ class Graph():
             if tovisit is not None:
                 print(tour)
                 #self.dd_graph[tovisit]["VISITED"] += 1
-                path_to_nearest = dd_djksol[tovisit][1] + [tovisit]
+                path_to_nearest = dd_djksol[tovisit][1]
                 print(path_to_nearest)
                 #walk  of shame to revisit dustbins
                 for visit in path_to_nearest:
@@ -385,15 +385,7 @@ class Graph():
             
         print(len(tour))
         res = (tour, totaldist)
-        return res
-            
-            
-            
-            
-       
-        
-        
-        
+        return res      
         
     def display_availiable_graphs(self):
         pass
