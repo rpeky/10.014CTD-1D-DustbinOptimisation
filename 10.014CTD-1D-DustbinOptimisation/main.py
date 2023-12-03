@@ -1,5 +1,4 @@
 import time
-#import User
 import Graph
 import Jsonstuff
 
@@ -8,11 +7,6 @@ import Jsonstuff
 def generate_Graph(graphid):
     g = Graph.Graph(graphid)
     return g
-
-# def generate_person():
-#     u = User.User()
-#     u.printtest()
-#     return u
 
 #User input functions
 #Terminal input output
@@ -84,39 +78,18 @@ def query_startpoints(curr_graph):
             print('Invalid input, please try again.')
             continue
 
-
 def welcome_message():
     print('test welcome message')
     #to make some intro message and how to use the software
     graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
     query_startpoints(curr_graph)
-    # print(curr_graph.pathfind_dijkstra("D_LIBRARY"))
-    # print(curr_graph.greedy_circuit("LIFT_SERVICE"))
-    #user = generate_person()
+
     print('The ancient one goes back to sleep')
-    
-
-
 
 def main():
     welcome_message()
-    # Jsonstuff.check_filefolderexist()
-    # Jsonstuff.check_floorplan_exist('aaab')
-    # g=Graph.Graph('test')
-    # l2=g.return_allnodes()
-    # print('list of all nodes: \n{}'.format(l2))
-    # l3=g.return_startpoints()
-    # print('list of all startpoints: \n{}'.format(l3))
-    # g.add_neighbour('D_PANTRY')
-    # l2=g.return_allnodes()
-    # print('list of all nodes: \n{}'.format(l2))
-    # g.add_visit('D_PANTRY')
-    # g.add_visit('D_PANTRY')
-    # print(g.dd_graph)
     
-    
-
 if __name__ == "__main__":
     start=time.process_time()
     main()

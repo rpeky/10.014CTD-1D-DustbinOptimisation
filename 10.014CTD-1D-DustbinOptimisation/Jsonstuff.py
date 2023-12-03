@@ -29,8 +29,6 @@ def check_floorplan_exist(graphid):
     full_path = os.path.join(newdir, filename)
     return os.path.isfile(full_path)
 
-
-
 def extract_jsonfileasobj(identifier, indextoload_suffix, indextoload_folder):
     filesuffix = [
         '_floorplan.json',
@@ -47,9 +45,4 @@ def extract_jsonfileasobj(identifier, indextoload_suffix, indextoload_folder):
     newdir = os.path.join(cwd, listoffolders_toexist[indextoload_folder])
     full_path = os.path.join(newdir, filename)
     f = open(full_path)
-    #print('opening from: {}'.format(full_path))
     return json.load(f)
-
-
-
-
