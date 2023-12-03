@@ -50,7 +50,13 @@ def output_choice_processed(b_choice,f_choice):
 #if graph exists
 #write a function to display the possible points from the graph dictionary (can use the return startpoint fn in graph.py)
 def startpoints():
-    pass
+    lift_start=curr_graph.return_startpoints()
+    misc_start=curr_graph.return_allnodes()
+    for node in misc_start:
+        if node in lift_start:
+            misc_start.remove(node)
+    return 'Lifts:{}\nBins:{}'.format(lift_start,misc_start)
+    
 
 
 #write a function to use the above function's list of points to query starting point from user
@@ -59,7 +65,18 @@ def startpoints():
     #   R_{LOCATION DESC} for rooms approximated as one dustbin
     #   LIFT_{LOCATION}   for lift location
 def query_startpoints():
-    pass
+    while True:
+        startpoint=input('Where would you like to begin? Please select from the following options:\n{}'.format(startpoints()))
+        if startpoint in curr_graph.return_allnodes():
+            confirm=input('Start from {}? y/n'.format(startpoint))
+            if confirm=='y':
+                return curr_graph.greedy_circuit(startpoint)
+            else:
+                print('Please select a new startpoint.')
+                continue
+        else:
+            print('Invalid input, please try again.')
+            continue
 
 
 def welcome_message():
