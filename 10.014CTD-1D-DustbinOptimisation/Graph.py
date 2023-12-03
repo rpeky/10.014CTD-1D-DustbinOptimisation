@@ -296,7 +296,7 @@ class Graph():
     #debug - startpoint "LIFT_SERVICE"
     def greedy_circuit(self, startpoint):
         #since set maintains order, we create a set of the order to visit
-        sol={startpoint}
+        #sol={startpoint}
         
         #total number of dustbins on floor = total vertex - lifts, to check if solution is a hamitonian cycle
         start_point_lift=self.return_startpoints()
@@ -334,10 +334,16 @@ class Graph():
                     
             #add to tour
             if tovisit is not None:
-                self.dd_graph[tovisit]["VISITED"] += 1
-                path_to_nearest = dd_djksol[tovisit][1]
+                print(tour)
+                #self.dd_graph[tovisit]["VISITED"] += 1
+                path_to_nearest = dd_djksol[tovisit][1] + [tovisit]
+                print(path_to_nearest)
+                #walk  of shame to revisit dustbins
+                for visit in path_to_nearest:
+                    self.dd_graph[visit]["VISITED"] += 1
                 tour += path_to_nearest
-                sol.add(tovisit)
+                print(tour)
+                #sol.add(tovisit)
                 curr_pos = tovisit
                 totaldist += shortest_dist
                 
@@ -351,21 +357,22 @@ class Graph():
     
                 for i in l_lift:
                     # Update the conditions inside the loop
-                    if dd_djksol[i][0] < shortest_dist and self.dd_graph[i]["VISITED"] == 0:
+                    if dd_djksol[i][0] < shortest_dist:
                         shortest_dist = dd_djksol[i][0]
                         tovisit = i
     
-                # Update this part to use the correct variables
                 if tovisit is not None:
                     self.dd_graph[tovisit]["VISITED"] += 1
-                    path_to_nearest = dd_djksol[tovisit][1]
+                    path_to_nearest = dd_djksol[tovisit][1] + [tovisit]
+                    for visit in path_to_nearest:
+                        self.dd_graph[visit]["VISITED"] += 1
                     tour += path_to_nearest
-                    sol.add(tovisit)
+                    #sol.add(tovisit)
                     totaldist += shortest_dist    
                 break        
                     
             
-            print(sol)        
+            #print(sol)        
             print(dd_djksol)
             print(neigh_list)
             print(shortest_dist)
@@ -377,7 +384,8 @@ class Graph():
             print("____________")
             
         print(len(tour))
-        return tour
+        res = (tour, totaldist)
+        return res
             
             
             
