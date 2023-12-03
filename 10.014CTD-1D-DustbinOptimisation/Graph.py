@@ -19,9 +19,13 @@ class Graph():
             print('current graph state: ')
             print(self.dd_graph)
             self.show_neighbour()
-            self.add_visiteddictkey_setas0()
+            
             print('\nStarting points:\n',self.return_startpoints())
             print('\nAll points:\n',self.return_allnodes())
+            print('Changing Graph source')
+            self.change_graph_useworkingdata(graphid)
+            self.add_visiteddictkey_setas0()
+            print('Changed')
             
             #offer options
             
@@ -32,6 +36,7 @@ class Graph():
             print(self.dd_graph)
             self.show_neighbour()
             self.add_visiteddictkey_setas0()
+            self.change_graph_useworkingdata(graphid)
 
         print('Graph created')
         
@@ -230,7 +235,7 @@ class Graph():
         with open(full_path, 'w') as outfile:
             json.dump(self.dd_graph, outfile, sort_keys=False, indent=4, ensure_ascii=False) 
             
-    def change_graph_useworkingdata(self):
+    def change_graph_useworkingdata(self, graphid):
         #make a list of displayable graphs/file names
         #make a selectable list in the display 1. B1_F1_floorplan.json
         #                                      2. B1_F2_floorplan.json etc
@@ -238,9 +243,9 @@ class Graph():
         #take input 
         self.display_availiable_graphs()
         #some error checking - try except loop
-        selection = input()
+        #selection = input()
         #some confirmation message
-        self.dd_graph = Jsonstuff.extract_jsonfileasobj(selection,1,1)
+        self.dd_graph = Jsonstuff.extract_jsonfileasobj(graphid,1,1)
         #print some confirmation message
 
 ## path finding stuff
@@ -283,53 +288,101 @@ class Graph():
                     current_vtx_dist = tuptup[0]
             if current_vtx == None:
                 break
+
         return djk_dict
     
     #for unlimited space in rubbish cart, solutions = number of starting nodes, unlikely to have two destinations with the same distance
     #greedy solution involves taking the shortest distance to the next unvisited dustbin
+    #debug - startpoint "LIFT_SERVICE"
     def greedy_circuit(self, startpoint):
         #since set maintains order, we create a set of the order to visit
-        sol=set()
+        sol={startpoint}
         
         #total number of dustbins on floor = total vertex - lifts, to check if solution is a hamitonian cycle
         start_point_lift=self.return_startpoints()
         set_maxvisits = len(self.return_allnodes()) - len(start_point_lift)
         
         curr_pos = startpoint
-        tour=[]
+        tour = []
+        self.dd_graph[curr_pos]["VISITED"]+=1 
+        totaldist=0
+        
 
-        while len(sol)<set_maxvisits:
-            dd_djk_sol = self.pathfind_dijkstra(curr_pos)
-            nearest_sol = min(dd_djk_sol, key=dd_djk_sol.get)
-            adj_neigh = self.dd_graph[curr_pos].keys()
-            
-            #filter out if shortest distance is a lift
-            while True:
-                if nearest_sol[:4]!="LIFT":
-                    break
-                dd_djk_sol.pop(nearest_sol)
-                nearest_sol = min(dd_djk_sol, key=dd_djk_sol.get)                
-            
-            #check initial visit, take shortest if is neighbour, 
-            #add to visited and go next iter
-            if nearest_sol not in sol and nearest_sol in adj_neigh:
-                sol.add(nearest_sol)
-                self.dd_graph[nearest_sol]["VISITED"]+=1
-                tour.append((dd_djk_sol[nearest_sol],nearest_sol))
-                curr_pos = nearest_sol
-                continue
-            
-            #initial visit, but not neighbour
-            #find path to neighbour, append path and distances to tour            
-            elif (nearest_sol not in sol) and (nearest_sol not in adj_neigh):
-                break
+        while True:
+            dd_djksol = self.pathfind_dijkstra(curr_pos)
+            #find neighbours, remove visited tracker from list since not a dustbin
+            neigh_list = list(self.dd_graph[curr_pos])
+            neigh_list = [i for i in neigh_list if i!="VISITED"]
+            shortest_dist = float('inf')
+            tovisit=None
+
+            #greedy search for nearest unvisited dustbin
+            for i in dd_djksol.keys():
+                # print("###############")
+                # print(dd_djksol)
+                # print(i, dd_djksol[i][0], shortest_dist, self.dd_graph[i],i[:4])
+                # print("dist check: ",dd_djksol[i][0]<shortest_dist)
+                # print("check not visited",self.dd_graph[i]["VISITED"]==0)
+                # print("check if is not lift",i[:4]!="LIFT")
+                # print("check if is not curr position",i!=curr_pos)
                 
+                if dd_djksol[i][0]<shortest_dist and self.dd_graph[i]["VISITED"]==0 and i[:4]!="LIFT" and i!=curr_pos:
+                    shortest_dist=dd_djksol[i][0]
+                    tovisit=i
+                # print(shortest_dist)
+                # print(tovisit)
                     
-     
+            #add to tour
+            if tovisit is not None:
+                self.dd_graph[tovisit]["VISITED"] += 1
+                path_to_nearest = dd_djksol[tovisit][1]
+                tour += path_to_nearest
+                sol.add(tovisit)
+                curr_pos = tovisit
+                totaldist += shortest_dist
+                
+            #if nothing else, path find to nearest lift
+            else:
+                print("returning to lift")
+                shortest_dist = float('inf')
+                tovisit = None
+                dd_djksol = self.pathfind_dijkstra(curr_pos)
+                l_lift = self.return_startpoints()
+    
+                for i in l_lift:
+                    # Update the conditions inside the loop
+                    if dd_djksol[i][0] < shortest_dist and self.dd_graph[i]["VISITED"] == 0:
+                        shortest_dist = dd_djksol[i][0]
+                        tovisit = i
+    
+                # Update this part to use the correct variables
+                if tovisit is not None:
+                    self.dd_graph[tovisit]["VISITED"] += 1
+                    path_to_nearest = dd_djksol[tovisit][1]
+                    tour += path_to_nearest
+                    sol.add(tovisit)
+                    totaldist += shortest_dist    
+                break        
+                    
             
+            print(sol)        
+            print(dd_djksol)
+            print(neigh_list)
+            print(shortest_dist)
+            print(tovisit)
+            print(tour)
+            
+            
+            
+            print("____________")
+            
+        print(len(tour))
         return tour
             
             
+            
+            
+       
         
         
         

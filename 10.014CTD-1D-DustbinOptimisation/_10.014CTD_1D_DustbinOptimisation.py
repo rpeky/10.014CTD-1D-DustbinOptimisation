@@ -67,7 +67,7 @@ def welcome_message():
     graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
     print(curr_graph.pathfind_dijkstra("D_LIBRARY"))
-
+    print(curr_graph.greedy_circuit("LIFT_SERVICE"))
     #user = generate_person()
     print('welcomed')
     
