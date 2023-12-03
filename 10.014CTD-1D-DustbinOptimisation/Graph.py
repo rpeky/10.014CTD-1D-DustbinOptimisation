@@ -387,8 +387,89 @@ class Graph():
         # print(len(tour))
         res = (tour, totaldist)
         print(res)
-        return res      
-        
+        return res
+
+    def floyd_warshall(self):
+        vtxs = set(self.dd_graph.keys())
+        vtx_count = len(vtxs)
+        num_to_vtx = {i: vtx for i, vtx in enumerate(vtxs)}
+        vtx_to_num = {vtx: i for i, vtx in enumerate(vtxs)}
+
+        # Construct adjacency matrix
+        dist_matrix = [[float('inf') for j in range(vtx_count)] for i in range(vtx_count)]
+        prev_matrix = [[None for j in range(vtx_count)] for i in range(vtx_count)]
+        for vtx, info in self.dd_graph.items():
+            vtx_num = vtx_to_num[vtx]
+            for adj_vtx, dist in info.items():
+                adj_vtx_num = vtx_to_num[adj_vtx]
+                if adj_vtx in self.dd_graph:
+                    dist_matrix[vtx_num][adj_vtx_num] = self.dd_graph[vtx][adj_vtx]
+                    prev_matrix[vtx_num][adj_vtx_num] = vtx_num
+            dist_matrix[vtx_num][vtx_num] = 0
+            prev_matrix[vtx_num][vtx_num] = vtx_num
+
+        # k is the intermediate node between i and j
+        for k in range(vtx_count):
+            for i in range(vtx_count):
+                for j in range(vtx_count):
+                    old_dist = dist_matrix[i][j]
+                    new_dist = dist_matrix[i][k] + dist_matrix[k][j]
+                    if old_dist > new_dist:
+                        dist_matrix[i][j] = new_dist
+                        prev_matrix[i][j] = prev_matrix[k][j]
+
+                        # Convert matrix back into dict
+        dist_dict = {}
+        path_dict = {}
+        for i, row in enumerate(dist_matrix):
+            vtx = num_to_vtx[i]
+            dist_dict[vtx] = {}
+            path_dict[vtx] = {}
+            for j, dist in enumerate(row):
+                adj_vtx = num_to_vtx[j]
+                dist_dict[vtx][adj_vtx] = dist
+                if prev_matrix[i][j] == None:
+                    path_dict[vtx][adj_vtx] = []
+                else:
+                    path_dict[vtx][adj_vtx] = [adj_vtx]
+                    while i != j:
+                        j = prev_matrix[i][j]
+                        path_dict[vtx][adj_vtx] = [num_to_vtx[j]] + path_dict[vtx][adj_vtx]
+        fw_dict = {
+            'dist': dist_dict,
+            'path': path_dict
+        }
+        return fw_dict
+
+    def pathfind_travelling_salesman_problem(self, startpoint):
+        fw_dict = self.floyd_warshall()
+        min_dist_graph = fw_dict['dist']
+        min_dist_paths = fw_dict['path']
+
+        def tsp(start, vtxs):
+            # base case
+            if len(vtxs) == 1:
+                vtx = vtxs.pop()
+                dist = min_dist_graph[start][vtx]
+                path = [start, vtx]
+                return dist, path
+            info = []
+            for vtx in vtxs:
+                old_dist, old_path = tsp(vtx, vtxs - {vtx})
+                new_dist = old_dist + min_dist_graph[start][vtx]
+                new_path = [start] + old_path
+                info.append((new_dist, new_path))
+            return min(info, key=lambda x: x[0])
+
+        vtxs = set(min_dist_graph.keys()) - {startpoint}
+        dist, path = tsp(startpoint, vtxs)
+        path_with_subpaths = [((i, j), min_dist_paths[i][j][1:-1]) for i, j in zip(path, path[1:])]
+        tsp_dict = {
+            'dist': dist,
+            'path': path_with_subpaths
+        }
+        return tsp_dict
+
     def display_availiable_graphs(self):
         pass
     
