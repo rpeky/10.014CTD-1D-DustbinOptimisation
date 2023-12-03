@@ -401,6 +401,7 @@ class Graph():
         for vtx, info in self.dd_graph.items():
             vtx_num = vtx_to_num[vtx]
             for adj_vtx, dist in info.items():
+                if adj_vtx == "VISITED": continue
                 adj_vtx_num = vtx_to_num[adj_vtx]
                 if adj_vtx in self.dd_graph:
                     dist_matrix[vtx_num][adj_vtx_num] = self.dd_graph[vtx][adj_vtx]
@@ -468,6 +469,7 @@ class Graph():
             'dist': dist,
             'path': path_with_subpaths
         }
+        print(tsp_dict)
         return tsp_dict
 
     def display_availiable_graphs(self):

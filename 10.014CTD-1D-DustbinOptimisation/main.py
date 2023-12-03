@@ -69,14 +69,15 @@ def query_startpoints(curr_graph):
         #check if 
         startpoint=input('\n------------------------------------------------------------------------------\
                          \nWhere would you like to begin? Please select from the following options:\n{}\n\
-                         \nYou can copy and paste from the selection above!\n\nChoice: '.format(startpoints(curr_graph)))
+                         \nYou can copy and paste from the selection above using ctrl+c and ctrl+v!\n\nChoice: '.format(startpoints(curr_graph)))
         #limit options
         nodes = curr_graph.return_allnodes()       
         
         if startpoint in nodes:
-            confirm=input('Start from {}? y/n'.format(startpoint))
+            confirm=input('Start from {}? y/n\n'.format(startpoint))
             if confirm in confirmation:
-                return curr_graph.greedy_circuit(startpoint)
+                #return curr_graph.greedy_circuit(startpoint)
+                return curr_graph.pathfind_travelling_salesman_problem(startpoint)
             else:
                 print('Please select a new startpoint.')
                 continue
@@ -86,7 +87,7 @@ def query_startpoints(curr_graph):
 
 
 def welcome_message():
-    print('test welcome message')
+    print('Welcome! Follow the instructions to obtain the path you need')
     #to make some intro message and how to use the software
     graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
@@ -101,19 +102,26 @@ def welcome_message():
 
 def main():
     welcome_message()
-    # Jsonstuff.check_filefolderexist()
-    # Jsonstuff.check_floorplan_exist('aaab')
-    # g=Graph.Graph('test')
-    # l2=g.return_allnodes()
-    # print('list of all nodes: \n{}'.format(l2))
-    # l3=g.return_startpoints()
-    # print('list of all startpoints: \n{}'.format(l3))
-    # g.add_neighbour('D_PANTRY')
-    # l2=g.return_allnodes()
-    # print('list of all nodes: \n{}'.format(l2))
-    # g.add_visit('D_PANTRY')
-    # g.add_visit('D_PANTRY')
-    # print(g.dd_graph)
+    cont_list=['y','Y','1','continue']
+    stop_list=['n','N','0','stop']
+    while True:
+        cont = input("Calculation has been completed! Continue?\ny - to choose another location\nn - to exit\ny/n: \n")
+        try: 
+            if cont in cont_list:
+                print('Continuing!\n')
+                clear = "\n"*100
+                print(clear)
+                welcome_message()
+                break
+                    
+            elif cont in stop_list:
+                print('Stopping!\n')
+                return
+            else:
+                raise ValueError
+        except ValueError:
+            print("Invalid Input! Try again :(")
+            continue
     
     
 
