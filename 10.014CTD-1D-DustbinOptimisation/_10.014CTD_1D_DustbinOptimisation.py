@@ -31,22 +31,20 @@ def output_listoffloorplans_query_userinput(b_choice):
         f_choice = input('Enter floor choice:')
         if f_choice.isnumeric():
             try:
-                return output_listoffloorplans_query_userinput(b_choice,f_choice)
+                return output_choice_processed(b_choice,f_choice)
             except KeyError:
                 print ('Enter a floor number from 2 to 7.')
         else:
             print('Enter a valid integer.')
             
-def output_listoffloorplans_query_userinput(b_choice,f_choice):
+def output_choice_processed(b_choice,f_choice):
     choice_processed = "B" + b_choice + "F" + f_choice
     c_processed = "Building " + b_choice + " Level " + f_choice
-    print('Chosen Floor: ' + c_processed + ". Enter 'Yes' to confirm, N to exit.")
-    if input('Confirm?') == 'Yes':
+    print('Chosen Floor: ' + c_processed + ". Enter y to confirm, n to reselect.")
+    if input('Confirm?') == 'y':
         return choice_processed
     else:
-        return output_buildingdecision_query_userinput(building_choice)
-
-
+        return output_buildingdecision_query_userinput()
 
 #write a function to display the possible points from the graph dictionary (can use the return startpoint fn in graph.py)
 def startpoints():
