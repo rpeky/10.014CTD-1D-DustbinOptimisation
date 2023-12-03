@@ -26,6 +26,7 @@ def output_buildingdecision_query_userinput():
         else:
             print ('Enter a valid building number (1, 2, 3, 5).')    
 
+
 def output_listoffloorplans_query_userinput(b_choice):
     while True:
         f_choice = input('Enter floor choice:')
@@ -46,6 +47,7 @@ def output_choice_processed(b_choice,f_choice):
     else:
         return output_buildingdecision_query_userinput()
 
+#if graph exists
 #write a function to display the possible points from the graph dictionary (can use the return startpoint fn in graph.py)
 def startpoints():
     pass
@@ -59,11 +61,14 @@ def startpoints():
 def query_startpoints():
     pass
 
+
 def welcome_message():
     print('test welcome message')
     #to make some intro message and how to use the software
     graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
+    print(curr_graph.pathfind_dijkstra("D_LIBRARY"))
+    print(curr_graph.greedy_circuit("LIFT_SERVICE"))
     #user = generate_person()
     print('welcomed')
     
