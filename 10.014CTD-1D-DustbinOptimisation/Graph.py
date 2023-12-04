@@ -1,3 +1,4 @@
+from tkinter import CURRENT
 import Jsonstuff
 import json
 import os
@@ -222,6 +223,49 @@ class Graph():
         node_list=list(self.dd_graph.keys())
         return node_list
     
+    def shortest_path(self,target_D):               #### New case (shortest path from current location to new path)
+        
+        current_pos = self.dd_graph["current_location"]
+        ### insert a program that calls on the smallest number of dustbins between your position and target dustbin, adding distance
+
+    ### Removal of Dustbin (New)
+    def remove_D(self, unwanted_D):
+        print("Whhich dusbin would you like to remove?")
+        print( '{}' .format.unwanted_D)
+        confirm = input('Are you sure? y/n\n')
+        cont_list=['y','Y','1','continue']
+        stop_list=['n','N','0','stop']
+        while true:
+            if confirm in cont_list: 
+                self.dd_graph.pop(unwanted_D)
+                print('Dustbin Removed!')
+            elif confirm in stop_list:
+                print(remove_D)            #### kinda feel the function won't call on itself
+            else:
+                ### Retry func
+                return
+        return
+
+    def func_select(self):
+        for i in range (len(self.dd_graph)):
+            return i
+        choice = input('What would you like to do? {}'.format)
+        while True:
+            try:
+                if choice == i:
+                    print (i)
+                else:
+                    print('Invalid input, please input again!')
+                    continue
+                return
+            except ValueError:
+                print('Invalid input! Try again :(\n')
+                continue
+        return 
+        
+    
+
+
     #save in working folder
     def save_graph(self,graphid):
         makenewfilename = graphid+"_floorplan.json"
