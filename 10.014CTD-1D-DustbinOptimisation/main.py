@@ -1,19 +1,11 @@
 import time
-#import User
 import Graph
-import Jsonstuff
-import json
 
 # Object generation
 # graph id format
 def generate_Graph(graphid):
     g = Graph.Graph(graphid)
     return g
-
-# def generate_person():
-#     u = User.User()
-#     u.printtest()
-#     return u
 
 #User input functions
 #Terminal input output
@@ -78,15 +70,11 @@ def query_startpoints(curr_graph):
             confirm=input('Start from {}? y/n\n'.format(startpoint))
             if confirm in confirmation:
                 #return curr_graph.greedy_circuit(startpoint)3
-                # print(curr_graph.floyd_warshall())
-                # print("-------------------")
-                # print(curr_graph.pathfind_dijkstra(startpoint))
-                with open("fw_dict.json",'w') as f:
-                    json.dump(curr_graph.floyd_warshall(), f, sort_keys=False, indent=4, ensure_ascii=False)
-                with open("djk_dict.json",'w') as f:
-                    json.dump(curr_graph.pathfind_dijkstra(startpoint), f, sort_keys=False, indent=4, ensure_ascii=False)
-
-                #return curr_graph.greedy_circuit(startpoint)
+                print("Floyd Warshall solution - shows every paths and distances:\n",curr_graph.floyd_warshall())
+                print("-------------------")
+                print("Dijkstra solution - shows shortest path from starting point:\n",curr_graph.pathfind_dijkstra(startpoint))
+                print("-------------------")
+                return curr_graph.greedy_circuit(startpoint)
             else:
                 print('Please select a new startpoint.')
                 continue
@@ -101,9 +89,6 @@ def welcome_message():
     graphid = output_buildingdecision_query_userinput()
     curr_graph = generate_Graph(graphid)
     query_startpoints(curr_graph)
-    # print(curr_graph.pathfind_dijkstra("D_LIBRARY"))
-    # print(curr_graph.greedy_circuit("LIFT_SERVICE"))
-    #user = generate_person()
     print('The ancient one goes back to sleep')
 
 def main():

@@ -7,14 +7,14 @@
         "LIFT_SERVICE_1": 85.0,
         "D_1304": 69.0,
         "D_1309": 73.0,
-        "VISITED": 4
+        "VISITED": 1
     },
     "D_LIFT_MAIN_1": {
         "LIFT_MAIN_1": 9.0,
         "D_TOILET_1": 102.0,
         "D_LIFT_MAIN_2A": 58.0,
         "D_2305A": 48.0,
-        "VISITED": 2
+        "VISITED": 1
     },
     "D_1315": {
         "LIFT_MAIN_1": 48.0,
@@ -45,14 +45,14 @@
     "R_FACULTY": {
         "D_LIBRARY": 5.0,
         "LIFT_SERVICE_1": 17.0,
-        "VISITED": 2
+        "VISITED": 1
     },
     "LIFT_SERVICE_1": {
         "LIFT_MAIN_1": 85.0,
         "R_FACULTY": 17.0,
         "D_TOILET_1": 33.0,
         "D_1309": 52.0,
-        "VISITED": 2
+        "VISITED": 1
     },
     "D_1304": {
         "LIFT_MAIN_1": 69.0,
@@ -75,7 +75,7 @@
     },
     "LIFT_LIBRARY": {
         "D_LIBRARY": 5.0,
-        "VISITED": 0
+        "VISITED": 2
     },
     "D_1312": {
         "D_1309": 40.0,
@@ -142,7 +142,7 @@
         "D_2314": 59.0,
         "D_TOILET_2": 24.0,
         "D_2311A": 23.0,
-        "VISITED": 2
+        "VISITED": 1
     },
     "D_2314": {
         "D_LIFT_MAIN_2B": 73.0,

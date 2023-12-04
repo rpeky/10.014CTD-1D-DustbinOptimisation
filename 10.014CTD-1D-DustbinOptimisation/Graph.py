@@ -239,16 +239,7 @@ class Graph():
             
     #semi debug tool, currently used to swap from master copy to working copy to reduce chance of overwriting recorded floor data        
     def change_graph_useworkingdata(self, graphid):
-        #make a list of displayable graphs/file names
-        #make a selectable list in the display 1. B1_F1_floorplan.json
-        #                                      2. B1_F2_floorplan.json etc
-        #maybe try some kind of enumerate list after getting the file names then format the strings
-        #take input 
-        #some error checking - try except loop
-        #selection = input()
-        #some confirmation message
         self.dd_graph = Jsonstuff.extract_jsonfileasobj(graphid,1,1)
-        #print some confirmation message
 
 ## path finding stuff
     def pathfind_dijkstra(self, startpoint):
@@ -298,17 +289,12 @@ class Graph():
     #debug - startpoint "LIFT_SERVICE"
     def greedy_circuit(self, startpoint):
         #since set maintains order, we create a set of the order to visit
-        #sol={startpoint}
-        
         #total number of dustbins on floor = total vertex - lifts, to check if solution is a hamitonian cycle
-        start_point_lift=self.return_startpoints()
-        set_maxvisits = len(self.return_allnodes()) - len(start_point_lift)
         
         curr_pos = startpoint
         tour = []
         self.dd_graph[curr_pos]["VISITED"]+=1 
         totaldist=0
-        
 
         while True:
             dd_djksol = self.pathfind_dijkstra(curr_pos)
@@ -320,38 +306,23 @@ class Graph():
 
             #greedy search for nearest unvisited dustbin
             for i in dd_djksol.keys():
-                # print("###############")
-                # print(dd_djksol)
-                # print(i, dd_djksol[i][0], shortest_dist, self.dd_graph[i],i[:4])
-                # print("dist check: ",dd_djksol[i][0]<shortest_dist)
-                # print("check not visited",self.dd_graph[i]["VISITED"]==0)
-                # print("check if is not lift",i[:4]!="LIFT")
-                # print("check if is not curr position",i!=curr_pos)
                 
                 if dd_djksol[i][0]<shortest_dist and self.dd_graph[i]["VISITED"]==0 and i[:4]!="LIFT" and i!=curr_pos:
                     shortest_dist=dd_djksol[i][0]
                     tovisit=i
-                # print(shortest_dist)
-                # print(tovisit)
                     
             #add to tour
             if tovisit is not None:
-                #print(tour)
-                #self.dd_graph[tovisit]["VISITED"] += 1
                 path_to_nearest = dd_djksol[tovisit][1]
-                #print(path_to_nearest)
                 #walk  of shame to revisit dustbins
                 for visit in path_to_nearest:
                     self.dd_graph[visit]["VISITED"] += 1
                 tour += path_to_nearest
-                #print(tour)
-                #sol.add(tovisit)
                 curr_pos = tovisit
                 totaldist += shortest_dist
                 
             #if nothing else, path find to nearest lift
             else:
-                #print("returning to lift")
                 shortest_dist = float('inf')
                 tovisit = None
                 dd_djksol = self.pathfind_dijkstra(curr_pos)
@@ -369,25 +340,13 @@ class Graph():
                     for visit in path_to_nearest:
                         self.dd_graph[visit]["VISITED"] += 1
                     tour += path_to_nearest
-                    #sol.add(tovisit)
                     totaldist += shortest_dist    
                 break        
-                    
             
-            #print(sol)        
-            # print(dd_djksol)
-            # print(neigh_list)
-            # print(shortest_dist)
-            # print(tovisit)
-            # print(tour)
-            
-            
-            
-        #     print("____________")
-            
-        # print(len(tour))
+        print("Number of points passed: ",len(tour))
         res = (tour, totaldist)
-        print(res)
+        print("Order of tour:\n", res[0])
+        print("Total Distance:\n", res[1])
         return res
 
     def floyd_warshall(self):
@@ -472,11 +431,3 @@ class Graph():
         }
         print(tsp_dict)
         return tsp_dict
-
-    def display_availiable_graphs(self):
-        pass
-    
-    def change_graph(self):
-        pass
-
-    

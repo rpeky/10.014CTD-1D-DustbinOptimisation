@@ -45,7 +45,7 @@
     "R_42SG": {
         "D_42SG": 22.0,
         "D_LIBRARY": 8.0,
-        "VISITED": 3
+        "VISITED": 1
     },
     "LIFT_SERVICE": {
         "D_42SG": 53.0,
@@ -68,7 +68,7 @@
     },
     "LIFT_LIBRARY": {
         "D_LIBRARY": 5.0,
-        "VISITED": 0
+        "VISITED": 2
     },
     "D_1409": {
         "D_TOILET": 42.0,
