@@ -1,0 +1,184 @@
+{
+    "LIFT_MAIN_1": {
+        "D_LIFT_MAIN_1": 9.0,
+        "D_1315": 48.0,
+        "D_PANTRY_1": 33.0,
+        "D_TOILET_1": 84.0,
+        "LIFT_SERVICE_1": 85.0,
+        "D_1304": 69.0,
+        "D_1309": 73.0
+    },
+    "D_LIFT_MAIN_1": {
+        "LIFT_MAIN_1": 9.0,
+        "D_TOILET_1": 102.0,
+        "D_LIFT_MAIN_2A": 58.0,
+        "D_2305A": 48.0
+    },
+    "D_1315": {
+        "LIFT_MAIN_1": 48.0,
+        "D_1314": 28.0,
+        "D_PANTRY_1": 21.0
+    },
+    "D_PANTRY_1": {
+        "LIFT_MAIN_1": 33.0,
+        "D_1315": 21.0,
+        "D_LIFT_MAIN_2A": 70.0,
+        "D_2305A": 89.0
+    },
+    "LIFT_MAIN_2": {
+        "D_LIFT_MAIN_2A": 7.0,
+        "D_LIFT_MAIN_2B": 7.0
+    },
+    "D_TOILET_1": {
+        "LIFT_MAIN_1": 84.0,
+        "LIFT_SERVICE_1": 33.0,
+        "D_1304": 47.0,
+        "D_1309": 51.0,
+        "D_LIFT_MAIN_1": 102.0
+    },
+    "R_FACULTY": {
+        "D_LIBRARY": 5.0,
+        "LIFT_SERVICE_1": 17.0
+    },
+    "LIFT_SERVICE_1": {
+        "LIFT_MAIN_1": 85.0,
+        "R_FACULTY": 17.0,
+        "D_TOILET_1": 33.0,
+        "D_1309": 52.0
+    },
+    "D_1304": {
+        "LIFT_MAIN_1": 69.0,
+        "D_TOILET_1": 47.0,
+        "D_1309": 36.0
+    },
+    "D_1309": {
+        "LIFT_MAIN_1": 73.0,
+        "D_TOILET_1": 51.0,
+        "D_1304": 36.0,
+        "LIFT_SERVICE_1": 52.0,
+        "D_1312": 40.0
+    },
+    "D_LIBRARY": {
+        "R_FACULTY": 5.0,
+        "LIFT_LIBRARY": 5.0
+    },
+    "LIFT_LIBRARY": {
+        "D_LIBRARY": 5.0
+    },
+    "D_1312": {
+        "D_1309": 40.0,
+        "D_1314": 18.0
+    },
+    "D_1314": {
+        "D_1312": 18.0,
+        "D_1315": 28.0
+    },
+    "D_LIFT_MAIN_2A": {
+        "LIFT_MAIN_2": 7.0,
+        "D_LIFT_MAIN_1": 58.0,
+        "D_2305A": 25.0,
+        "D_PANTRY_1": 70.0,
+        "D_PANTRY_2": 40.0,
+        "D_LIFT_MAIN_2B": 5.0
+    },
+    "D_LIFT_MAIN_2B": {
+        "LIFT_MAIN_2": 7.0,
+        "D_LIFT_MAIN_2A": 5.0,
+        "D_PANTRY_2": 60.0,
+        "D_2307": 56.0,
+        "D_2305A": 44.0,
+        "D_2305B": 38.0,
+        "D_2312": 70.0,
+        "D_2314": 73.0
+    },
+    "D_2305A": {
+        "D_LIFT_MAIN_2A": 25.0,
+        "D_LIFT_MAIN_2B": 44.0,
+        "D_PANTRY_1": 89.0,
+        "D_2305B": 34.0,
+        "D_LIFT_MAIN_1": 48.0,
+        "D_PANTRY_3": 40.0,
+        "LIFT_CAMPUS_CENTER": 91.0
+    },
+    "D_PANTRY_2": {
+        "D_LIFT_MAIN_2A": 40.0,
+        "D_LIFT_MAIN_2B": 60.0,
+        "D_2307": 36.0
+    },
+    "D_2307": {
+        "D_LIFT_MAIN_2B": 56.0,
+        "D_2310": 11.0,
+        "D_PANTRY_2": 36.0
+    },
+    "D_2305B": {
+        "D_LIFT_MAIN_2B": 38.0,
+        "D_2305A": 34.0,
+        "D_PANTRY_3": 53.0,
+        "D_2314": 42.0,
+        "D_LIFT_CAMPUS_CENTER": 56.0
+    },
+    "D_2312": {
+        "D_LIFT_MAIN_2B": 70.0,
+        "D_2314": 59.0,
+        "D_TOILET_2": 24.0,
+        "D_2311A": 23.0
+    },
+    "D_2314": {
+        "D_LIFT_MAIN_2B": 73.0,
+        "LIFT_SERVICE_2": 13.0,
+        "D_2305B": 42.0,
+        "D_2312": 59.0
+    },
+    "D_PANTRY_3": {
+        "D_2305A": 40.0,
+        "D_2305B": 53.0,
+        "LIFT_CAMPUS_CENTER": 75.0,
+        "D_LIFT_CAMPUS_CENTER": 37.0
+    },
+    "LIFT_CAMPUS_CENTER": {
+        "D_2305A": 91.0,
+        "D_PANTRY_3": 75.0,
+        "D_LIFT_CAMPUS_CENTER": 3.0
+    },
+    "D_LIFT_CAMPUS_CENTER": {
+        "LIFT_CAMPUS_CENTER": 3.0,
+        "D_2301": 20.0,
+        "D_PANTRY_3": 37.0,
+        "D_2305B": 56.0
+    },
+    "D_2301": {
+        "D_LIFT_CAMPUS_CENTER": 20.0,
+        "D_2316": 56.0
+    },
+    "D_2316": {
+        "D_2301": 56.0,
+        "D_TOILET_3": 36.0,
+        "LIFT_SERVICE_2": 37.0
+    },
+    "D_TOILET_3": {
+        "D_2316": 36.0,
+        "LIFT_SERVICE_2": 33.0
+    },
+    "LIFT_SERVICE_2": {
+        "D_2316": 37.0,
+        "D_TOILET_3": 33.0,
+        "D_2314": 13.0
+    },
+    "D_TOILET_2": {
+        "D_2312": 24.0,
+        "D_2311A": 23.0
+    },
+    "D_2311A": {
+        "D_2312": 23.0,
+        "D_TOILET_2": 23.0,
+        "D_2311": 14.0
+    },
+    "D_2311": {
+        "D_2311A": 14.0,
+        "D_2310": 8.0
+    },
+    "D_2310": {
+        "D_2311": 8.0,
+        "D_2307": 11.0
+    }
+}

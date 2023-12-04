@@ -34,6 +34,7 @@ class Graph():
         else:
             print('graph no exist :(\n')
             self.generate_data_firsttimeuse(graphid)
+            self.save_graph(self.g_id)
             print(self.dd_graph)
             self.show_neighbour()
             self.add_visiteddictkey_setas0()
@@ -219,7 +220,7 @@ class Graph():
         KEYWORD_STARTPOINT = 'LIFT_'
         startpoint_list=[]
         for i in self.dd_graph:
-            if KEYWORD_STARTPOINT in i:
+            if i[:5]==KEYWORD_STARTPOINT:
                 startpoint_list.append(i)
         return startpoint_list
     
@@ -477,3 +478,5 @@ class Graph():
     
     def change_graph(self):
         pass
+
+    

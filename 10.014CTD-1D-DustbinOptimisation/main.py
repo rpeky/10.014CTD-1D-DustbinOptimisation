@@ -2,6 +2,7 @@ import time
 #import User
 import Graph
 import Jsonstuff
+import json
 
 # Object generation
 # graph id format
@@ -77,8 +78,15 @@ def query_startpoints(curr_graph):
             confirm=input('Start from {}? y/n\n'.format(startpoint))
             if confirm in confirmation:
                 #return curr_graph.greedy_circuit(startpoint)3
-                print(curr_graph.floyd_warshall())
-                return curr_graph.greedy_circuit(startpoint)
+                # print(curr_graph.floyd_warshall())
+                # print("-------------------")
+                # print(curr_graph.pathfind_dijkstra(startpoint))
+                with open("fw_dict.json",'w') as f:
+                    json.dump(curr_graph.floyd_warshall(), f, sort_keys=False, indent=4, ensure_ascii=False)
+                with open("djk_dict.json",'w') as f:
+                    json.dump(curr_graph.pathfind_dijkstra(startpoint), f, sort_keys=False, indent=4, ensure_ascii=False)
+
+                #return curr_graph.greedy_circuit(startpoint)
             else:
                 print('Please select a new startpoint.')
                 continue
@@ -97,9 +105,6 @@ def welcome_message():
     # print(curr_graph.greedy_circuit("LIFT_SERVICE"))
     #user = generate_person()
     print('The ancient one goes back to sleep')
-    
-
-
 
 def main():
     welcome_message()
@@ -113,7 +118,7 @@ def main():
                 clear = "\n"*100
                 print(clear)
                 welcome_message()
-                break
+                
                     
             elif cont in stop_list:
                 print('Stopping!\n')

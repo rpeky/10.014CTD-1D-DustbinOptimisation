@@ -33,13 +33,13 @@ def check_floorplan_exist(graphid):
 
 def extract_jsonfileasobj(identifier, indextoload_suffix, indextoload_folder):
     filesuffix = [
-        '_floorplan.json',
-        '_floorplan.json'
+        "_floorplan.json",
+        "_floorplan.json"
         ]
 
     listoffolders_toexist = [
-        'FloorPlan_data_Master', 
-        'FloorPlan_data_Working'
+        "FloorPlan_data_Master", 
+        "FloorPlan_data_Working"
         ]
     
     filename = str(identifier) + str(filesuffix[indextoload_suffix])
