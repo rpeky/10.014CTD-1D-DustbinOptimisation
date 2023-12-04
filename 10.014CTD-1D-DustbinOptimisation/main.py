@@ -76,8 +76,9 @@ def query_startpoints(curr_graph):
         if startpoint in nodes:
             confirm=input('Start from {}? y/n\n'.format(startpoint))
             if confirm in confirmation:
-                #return curr_graph.greedy_circuit(startpoint)
-                return curr_graph.pathfind_travelling_salesman_problem(startpoint)
+                #return curr_graph.greedy_circuit(startpoint)3
+                print(curr_graph.floyd_warshall())
+                return curr_graph.greedy_circuit(startpoint)
             else:
                 print('Please select a new startpoint.')
                 continue
